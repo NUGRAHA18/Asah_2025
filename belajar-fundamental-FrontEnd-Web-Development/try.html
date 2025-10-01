@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contoh CSS Grid Layout</title>
+    <style>
+      /* CSS Dasar untuk Visualisasi */
+      body {
+        margin: 0;
+        font-family: sans-serif;
+        text-align: center;
+      }
+
+      .grid-item {
+        background-color: #5c6bc0; /* Warna biru */
+        color: white;
+        padding: 20px;
+        border: 1px solid #3f51b5;
+      }
+
+      /* DEFINISI GRID ANDA */
+      .grid-container {
+        display: grid;
+        /* 3 Kolom: 1 bagian - 3 bagian - 1 bagian */
+        grid-template-columns: 1fr 3fr 1fr;
+        /* 3 Baris: 200px (Header) - Otomatis (Konten) - 100px (Footer) */
+        grid-template-rows: 200px auto 200px;
+        /* Mengisi seluruh lebar layar */
+        min-height: 100vh;
+      }
+
+      /* Penempatan Konten ke dalam area Grid */
+
+      /* HEADER (Memanjang di 3 Kolom) */
+      .header {
+        grid-column: 1 / span 3; /* Mulai dari kolom 1, rentang 3 kolom */
+        background-color: #3949ab;
+        line-height: 160px; /* Vertically center text */
+      }
+
+      /* FOOTER (Memanjang di 3 Kolom) */
+      .footer {
+        grid-column: 1 / span 3;
+        background-color: #3949ab;
+        line-height: 60px; /* Vertically center text */
+      }
+
+      /* Main Content area */
+      .main-content {
+        background-color: #7986cb; /* Warna lebih terang */
+        padding: 40px 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grid-container">
+      <div class="grid-item header">HEADER (Tinggi 200px)</div>
+
+      <div class="grid-item">SIDEBAR KIRI (Lebar 1fr)</div>
+      <div class="grid-item main-content">
+        KONTEN UTAMA (Lebar 3fr, Tinggi Auto)
+      </div>
+      <div class="grid-item">SIDEBAR KANAN (Lebar 1fr)</div>
+
+      <div class="grid-item footer">FOOTER (Tinggi 100px)</div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,112 @@
+/* style.css */
+
+/* Reset dasar */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f9;
+}
+
+header {
+    background: #3498db;
+    color: #ffffff;
+    padding: 20px 0;
+    text-align: center;
+    border-bottom: 5px solid #2980b9;
+}
+
+header h1 {
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    font-style: italic;
+    opacity: 0.9;
+}
+
+.article-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+article {
+    padding: 20px;
+}
+
+/* Judul dan Meta */
+.article-title {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 2.2em;
+    border-bottom: 2px solid #ecf0f1;
+    padding-bottom: 5px;
+}
+
+.article-meta {
+    font-size: 0.9em;
+    color: #7f8c8d;
+    margin-bottom: 30px;
+}
+
+/* Bagian Konten */
+section h3 {
+    color: #2980b9;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+section p,
+section ul,
+section ol {
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+ul,
+ol {
+    margin-left: 25px;
+}
+
+/* Footer */
+footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px dashed #ccc;
+    text-align: center;
+}
+
+#likeButton {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+#likeButton:hover {
+    background-color: #c0392b;
+}
+
+pengantar-section img {
+    display: block;
+    margin: 20px auto;
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>::slotted Example</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <person-details title="orang satu">
+      <p slot="person-name">Ahmad Farhan</p>
+      <span slot="person-age">36</span>
+      <span slot="person-occupation">akuntan</span>
+    </person-details>
+    <person-details title="orang dua">
+      <p slot="person-name">Ahmad Farhan</p>
+      <span slot="person-age">36</span>
+      <span slot="person-occupation">akuntan</span>
+    </person-details>
+    <person-details>
+      <p slot="name">Ahmad Farhan</p>
+      <span slot="person-age">36</span>
+      <span slot="person-occupation">akuntan</span>
+    </person-details>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,248 @@
+* {
+  padding: 0;
+  margin: 0;
+
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+
+/* GLOBAL */
+.container {
+  max-width: 800px;
+
+  padding-block: 32px;
+  padding-inline: 16px;
+  margin-inline: auto;
+}
+
+.card {
+  border-radius: 8px;
+
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+label {
+  display: block;
+}
+
+section>.title-section {
+  margin-block-end: 2rem;
+
+  font-size: 1.2em;
+}
+
+/* GLOBAL */
+
+/* Start of Header */
+header {
+  background-color: cornflowerblue;
+
+  color: beige;
+}
+
+.app-bar {
+  padding: 24px 20px;
+}
+
+.app-bar .brand-name {
+  margin: 0;
+
+  font-size: 1.7em;
+}
+
+/* End of Header */
+
+main {
+  min-height: 100vh;
+}
+
+.search-bar-container {
+  display: inline;
+}
+
+/* Search bar */
+.floating-form {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+.search-form {
+  display: flex;
+  /* Gunakan Flexbox untuk menata input dan tombol */
+  gap: 10px;
+  /* Jarak antara input dan tombol */
+  align-items: flex-end;
+  /* Pastikan semua item rata bawah */
+}
+
+.search-form .form-group {
+  flex-grow: 1;
+}
+
+.form-group input {
+  width: 100%;
+  /* Padding normal */
+  padding: 10px 12px;
+  font-size: 1em;
+  line-height: 1.5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+
+  /* Atur ulang placeholder agar terlihat normal (tidak perlu trik " ") */
+  /* Karena kita pakai label di atas, placeholder sekarang bisa dihapus atau diisi normal */
+  &::placeholder {
+    color: #aaa;
+  }
+}
+
+.search-form .form-group input:focus-visible {
+  outline: 0;
+
+}
+
+.form-group label {
+  display: block;
+  /* Pastikan label berada di barisnya sendiri di atas input */
+  margin-bottom: 5px;
+  font-size: 0.9em;
+  color: #333;
+  font-weight: bold;
+}
+
+.form-group input:focus {
+  border-color: #007bff;
+  outline: none;
+  /* Hilangkan outline default browser */
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+  /* Focus ring yang halus */
+}
+
+.search-form button:hover {
+  background-color: #0056b3;
+}
+
+.search-form .form-group input:focus-visible~label,
+.search-form .form-group input:valid~label {
+  left: 10px;
+  top: -16px;
+  font-size: 0.8em;
+}
+
+.search-form button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  /* Warna biru standar */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: bold;
+  transition: background-color 0.2s;
+  /* Pastikan tinggi tombol pas dengan input yang padding-nya 10px */
+  height: 40px;
+}
+
+.search-form button:hover {
+  background-color: #4485ff;
+}
+
+.search-form button:active {
+  background-color: #6c9aee;
+}
+
+
+/* Search bar */
+
+.club-list-container {
+  margin-block-start: 32px;
+}
+
+.club-list .list {
+  overflow: auto;
+}
+
+
+.club-list .list>* {
+  float: left;
+  width: 49%;
+
+  margin-block-end: 3%;
+}
+
+.club-list .list>*:nth-child(odd) {
+  float: left;
+}
+
+.club-list .list>*:nth-child(even) {
+  margin-inline-start: 2%;
+}
+
+.club-list .list .card .fan-art-club {
+  width: 100%;
+  max-height: 450px;
+
+  object-fit: cover;
+  object-position: center;
+}
+
+.club-list .list .card .club-info {
+  padding: 16px 24px;
+}
+
+.club-list .list .card .club-info__title h2 {
+  font-weight: lighter;
+}
+
+.club-list .list .card .club-info__description p {
+  display: -webkit-box;
+  margin-top: 10px;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  /* number of lines to show */
+}
+
+.club-list-container .placeholder {
+  margin-block: 1rem;
+
+  font-size: 1.5rem;
+  font-weight: lighter;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+/* End of Main */
+
+/* Start of Footer */
+footer {
+  background-color: cornflowerblue;
+
+  color: beige;
+}
+
+footer .container {
+  padding-block: 16px;
+}
+
+.main-footer {
+  padding: 8px 16px;
+
+  text-align: center;
+}
+
+/* End of Footer */

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Demo Lifecycle Custom Element</title>
+  </head>
+  <body>
+    <script src="my-counter.js"></script>
+
+    <h1>Siklus Hidup Custom Element</h1>
+
+    <div id="container">
+      <my-counter id="myElement" start-count="10"></my-counter>
+    </div>
+
+    <button id="changeAttrButton">Ubah Atribut 'start-count'</button>
+    <button id="removeButton">Hapus Komponen</button>
+
+    <script>
+      const myElement = document.getElementById("myElement");
+      const changeButton = document.getElementById("changeAttrButton");
+      const removeButton = document.getElementById("removeButton");
+      const container = document.getElementById("container");
+
+      // Pemicu attributeChangedCallback
+      changeButton.addEventListener("click", () => {
+        // Nilai baru harus berbeda dari yang lama agar callback terpanggil
+        myElement.setAttribute("start-count", "50");
+      });
+
+      // Pemicu disconnectedCallback
+      removeButton.addEventListener("click", () => {
+        container.remove();
+      });
+    </script>
+  </body>
+</html>
