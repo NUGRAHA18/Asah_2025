@@ -1,14 +1,14 @@
 function main() {
-  const baseURL = "https://books-api.dicoding.dev";
+  const baseUrl = "https://books-api.dicoding.dev";
 
   const getBook = () => {
-    // tuliskan kode di sini!
+    // Membuat instance dari XMLHttpRequest
     const xhr = new XMLHttpRequest();
 
-    //menetapkan callback jika response sukses dan error
+    // Menetapkan callback jika response sukses dan error
     xhr.onload = function () {
-      const responseJson = JSON.parse(this.response);
-      console.log(responseJson);
+      const responseJson = JSON.parse(this.responseText);
+
       if (responseJson.error) {
         showResponseMessage(responseJson.message);
       } else {
@@ -20,21 +20,22 @@ function main() {
       showResponseMessage();
     };
 
-    //Membuat GET request dan menetapkan target URL
-    xhr.open("GET", `${baseURL}/list`);
+    // Membuat GET request dan menetapkan target URL
+    xhr.open("GET", `${baseUrl}/list`);
 
-    //Mengirim request
+    // Mengirimkan request
     xhr.send();
   };
 
   const insertBook = (book) => {
-    // Membuat instance dari XMLHTTPRequest
+    // Membuat instance dari XMLHttpRequest
     const xhr = new XMLHttpRequest();
 
-    // Menetapkan callbak jika response sukses dan error
+    // Menetapkan callback jika response sukses dan error
     xhr.onload = function () {
-      const responseJSON = JSON.parse(this.responseText);
-      showResponseMessage(responseJSON.message);
+      const responseJson = JSON.parse(this.responseText);
+      showResponseMessage(responseJson.message);
+
       getBook();
     };
 
@@ -42,10 +43,10 @@ function main() {
       showResponseMessage();
     };
 
-    //Membuat POST Request dan menetapkan target URL
-    xhr.open("POST", `${baseURL}/add`);
+    // Membuat POST request dan menetapkan target URL
+    xhr.open("POST", `${baseUrl}/add`);
 
-    //Menetapkan properti Content-Type dan X-Auth Token pada header
+    // Mementapkan properti Content-Type dan X-Auth-Token pada Header request
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.setRequestHeader("X-Auth-Token", "12345");
 
@@ -54,17 +55,41 @@ function main() {
   };
 
   const updateBook = (book) => {
-    // tuliskan kode di sini!
+    // Membuat instance dari XMLHttpRequest
+    const xhr = new XMLHttpRequest();
+
+    // Menetapkan callback jika response sukses dan error
+    xhr.onload = function () {
+      const responseJson = JSON.parse(this.responseText);
+      showResponseMessage(responseJson.message);
+
+      getBook();
+    };
+
+    xhr.onerror = function () {
+      showResponseMessage();
+    };
+
+    // Membuat PUT request dan menetapkan target URL
+    xhr.open("PUT", `${baseUrl}/edit/${book.id}`);
+
+    // Mementapkan properti Content-Type dan X-Auth-Token pada Header request
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("X-Auth-Token", "12345");
+
+    // Mengirimkan request dan menyisipkan JSON.stringify(book) pada body
+    xhr.send(JSON.stringify(book));
   };
 
   const removeBook = (bookId) => {
     // Membuat instance dari XMLHttpRequest
     const xhr = new XMLHttpRequest();
 
-    //menetapkan callback jika response sukses dan error
+    // Menetapkan callback jika response sukses dan error
     xhr.onload = function () {
       const responseJson = JSON.parse(this.responseText);
       showResponseMessage(responseJson.message);
+
       getBook();
     };
 
@@ -75,16 +100,15 @@ function main() {
     // Membuat DELETE request dan menetapkan target URL
     xhr.open("DELETE", `${baseUrl}/delete/${bookId}`);
 
-    // Menetapkan properti Content-Type dan X-Auth-Token pada Header request
+    // Mementapkan properti Content-Type dan X-Auth-Token pada Header request
     xhr.setRequestHeader("X-Auth-Token", "12345");
 
     // Mengirimkan request
     xhr.send();
-    // tuliskan kode di sini!
   };
 
   /*
-      jangan ubah kode di bawah ini ya!
+    PERINGATAN: Jangan ubah kode di bawah ini!
   */
 
   const renderAllBooks = (books) => {
@@ -98,17 +122,17 @@ function main() {
             <div class="card-body">
               <h5>(${book.id}) ${book.title}</h5>
               <p>${book.author}</p>
-              <button type="button" class="btn btn-danger button-delete" id="${book.id}">Hapus</button>
+              <button type="button" class="btn btn-danger btn-delete" data-id="${book.id}">Hapus</button>
             </div>
           </div>
         </div>
       `;
     });
 
-    const buttons = document.querySelectorAll(".button-delete");
-    buttons.forEach((button) => {
+    const deleteButtonElements = document.querySelectorAll(".btn-delete");
+    deleteButtonElements.forEach((button) => {
       button.addEventListener("click", (event) => {
-        const bookId = event.target.id;
+        const bookId = event.target.dataset.id;
 
         removeBook(bookId);
       });
@@ -120,56 +144,32 @@ function main() {
   };
 
   document.addEventListener("DOMContentLoaded", () => {
-    const inputBookId = document.querySelector("#inputBookId");
-    const inputBookTitle = document.querySelector("#inputBookTitle");
-    const inputBookAuthor = document.querySelector("#inputBookAuthor");
-    const buttonSave = document.querySelector("#buttonSave");
-    const buttonUpdate = document.querySelector("#buttonUpdate");
+    const bookForm = document.querySelector("form");
 
-    buttonSave.addEventListener("click", function () {
+    const inputBookId = bookForm.elements.inputBookId;
+    const inputBookTitle = bookForm.elements.inputBookTitle;
+    const inputBookAuthor = bookForm.elements.inputBookAuthor;
+
+    bookForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+
       const book = {
         id: Number.parseInt(inputBookId.value),
         title: inputBookTitle.value,
         author: inputBookAuthor.value,
       };
 
-      insertBook(book);
+      switch (event.submitter.textContent) {
+        case "Save":
+          insertBook(book);
+          break;
+
+        case "Update":
+          updateBook(book);
+          break;
+      }
     });
 
-    buttonUpdate.addEventListener("click", function () {
-      const book = {
-        id: Number.parseInt(inputBookId.value),
-        title: inputBookTitle.value,
-        author: inputBookAuthor.value,
-      };
-
-      updateBook(book);
-      const updateBook = (book) => {
-        //Membuat instance dari XMLHTTPRequest
-        const xhr = new XMLHttpRequest();
-
-        //menetapkan callback jika response sukses dan error
-        xhr.onload = function () {
-          const responseJson = JSON.parse(this.responseText);
-          showResponseMessage(responseJson.message);
-          getBook();
-        };
-
-        xhr.onerror = function () {
-          showResponseMessage();
-        };
-
-        //Membuat PUT Request dan mentapkan target URL
-        xhr.open("PUT", `${baseURL}/edit/${book.id}`);
-
-        //Menetapkan properti Content-Type dan X-Auth-Token pada header request
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.setRequestHeader("X-Auth-Token", "12345");
-
-        // Mengirimkan request dan menyisipkan JSON.stringify(book) pada body
-        xhr.send(JSON.stringify(book));
-      };
-    });
     getBook();
   });
 }
