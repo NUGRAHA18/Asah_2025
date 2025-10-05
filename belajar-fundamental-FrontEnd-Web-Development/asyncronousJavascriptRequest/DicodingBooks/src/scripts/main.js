@@ -1,30 +1,20 @@
 function main() {
   const baseUrl = "https://books-api.dicoding.dev";
 
-  const getBook = () => {
-    // Membuat instance dari XMLHttpRequest
-    const xhr = new XMLHttpRequest();
-
-    // Menetapkan callback jika response sukses dan error
-    xhr.onload = function () {
-      const responseJson = JSON.parse(this.responseText);
+  //menggunakan gaya async/await
+  const getBook = async () => {
+    try {
+      const response = await fetch(`${baseUrl}/list`);
+      const responseJson = await response.json();
 
       if (responseJson.error) {
         showResponseMessage(responseJson.message);
       } else {
         renderAllBooks(responseJson.books);
       }
-    };
-
-    xhr.onerror = function () {
-      showResponseMessage();
-    };
-
-    // Membuat GET request dan menetapkan target URL
-    xhr.open("GET", `${baseUrl}/list`);
-
-    // Mengirimkan request
-    xhr.send();
+    } catch (error) {
+      showResponseMessage(error);
+    }
   };
 
   const insertBook = (book) => {
@@ -162,10 +152,12 @@ function main() {
       switch (event.submitter.textContent) {
         case "Save":
           insertBook(book);
+          console.log(book);
           break;
 
         case "Update":
           updateBook(book);
+          console.log(book);
           break;
       }
     });
