@@ -1,4 +1,4 @@
-import anime from "animejs";
+import { gsap } from "gsap";
 export class NoteItem extends HTMLElement {
   constructor() {
     super();
@@ -79,12 +79,11 @@ export class NoteItem extends HTMLElement {
     this.$.archiveBtn.addEventListener("click", () => this._archive());
   }
   connectedCallback() {
-    anime({
-      targets: this, // Targetnya adalah elemen <note-item> ini sendiri
-      opacity: [0, 1], // Animasikan opacity dari 0 (tak terlihat) ke 1 (terlihat)
-      translateY: [20, 0], // Animasikan posisi dari 20px di bawah ke posisi normal
-      duration: 500, // Durasi animasi dalam milidetik
-      easing: "easeOutExpo", // Jenis pergerakan animasi agar lebih halus
+    gsap.from(this, {
+      opacity: 0, // Animasikan DARI opacity 0
+      y: 20, // Animasikan DARI posisi 20px di bawah (GSAP menggunakan 'y')
+      duration: 0.5, // Durasi dalam detik
+      ease: "power2.out", // Tipe easing khas GSAP
     });
   }
   set data(d) {
