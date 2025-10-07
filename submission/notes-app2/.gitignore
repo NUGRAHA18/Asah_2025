@@ -1,0 +1,30 @@
+# Dependencies & Packages
+# Folder ini berisi semua library pihak ketiga. Ukurannya sangat besar
+# dan bisa dibuat ulang oleh siapa saja dengan perintah `npm install`.
+/node_modules
+
+# Build output
+# Folder ini berisi hasil akhir dari proses build Webpack.
+# Seharusnya dibuat secara otomatis, bukan disimpan di repository.
+/dist
+
+# Log files
+# File-file log yang dibuat oleh npm jika terjadi error.
+npm-debug.log*
+yarn-error.log
+yarn-debug.log
+
+# Environment variables
+# File ini berisi variabel sensitif seperti kunci API, dll.
+# Sangat penting untuk tidak pernah memasukkannya ke repository.
+.env
+
+# Editor directories and files
+# File konfigurasi spesifik untuk editor kode seperti VS Code atau JetBrains.
+.vscode/
+.idea/
+
+# OS generated files
+# File-file yang dibuat secara otomatis oleh sistem operasi.
+.DS_Store
+Thumbs.db
