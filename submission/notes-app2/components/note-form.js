@@ -7,7 +7,7 @@ export class NoteForm extends HTMLElement {
     form{
         background:rgba(255,255,255,0.02);
         padding:14px;
-        border-radius:12px
+        border-radius:12px;
     }
     label{
         display:block;
@@ -16,7 +16,7 @@ export class NoteForm extends HTMLElement {
         color:var(--muted)
     }
     input,textarea{
-        width:100%;
+        width:97%;
         padding:10px;
         border-radius:8px;
         background:transparent;
@@ -65,7 +65,7 @@ export class NoteForm extends HTMLElement {
   }
   _onSubmit() {
     const note = {
-      id: Date.now().toString(),
+      id: `local-${Date.now()}`,
       title: this.$.title.value,
       body: this.$.body.value,
       createdAt: new Date().toISOString(),
@@ -82,4 +82,6 @@ export class NoteForm extends HTMLElement {
     this.$.body.value = "";
   }
 }
-customElements.define("note-form", NoteForm);
+if (!customElements.get("note-form")) {
+  customElements.define("note-form", NoteForm);
+}

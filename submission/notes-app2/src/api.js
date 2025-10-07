@@ -8,15 +8,71 @@ class NotesAPI {
 
     // Cek jika status respons bukan 'success'
     if (responseJson.status !== "success") {
-      // Lemparkan error dengan pesan dari API
       throw new Error(responseJson.message);
     }
 
-    // Kembalikan data catatan jika berhasil
     return responseJson.data;
   }
 
-  // Kita akan menambahkan fungsi lain (add, delete) di sini nanti
+  static async addNote(note) {
+    const response = await fetch(`${this.BASE_URL}/notes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(note),
+    });
+    const responseJson = await response.json();
+    if (responseJson.status !== "success") {
+      throw new Error(responseJson.message);
+    }
+
+    return responseJson.data;
+  }
+
+  static async deleteNote(id) {
+    const response = await fetch(`${this.BASE_URL}/notes/${id}`, {
+      method: "DELETE",
+    });
+
+    const responseJson = await response.json();
+
+    if (responseJson.status !== "success") {
+      throw new Error(responseJson.message);
+    }
+  }
+  // Mengambil catatan terarsip
+  static async getArchivedNotes() {
+    const response = await fetch(`${this.BASE_URL}/notes/archived`);
+    const responseJson = await response.json();
+
+    if (responseJson.status !== "success") {
+      throw new Error(responseJson.message);
+    }
+    return responseJson.data;
+  }
+
+  //Mengarsipkan Catatan
+  static async archiveNote(id) {
+    const response = await fetch(`${this.BASE_URL}/notes/${id}/archive`, {
+      method: "POST",
+    });
+    const responseJson = await response.json();
+    if (responseJson.status !== "success") {
+      throw new Error(responseJson.message);
+    }
+  }
+
+  //Membatalkan Arsip
+  static async unarchiveNote(id) {
+    const response = await fetch(`${this.BASE_URL}/notes/${id}/unarchive`, {
+      method: "POST",
+    });
+    const responseJson = await response.json();
+    if (responseJson.status !== "success") {
+      throw new Error(responseJson.message);
+    }
+  }
 }
 
 export default NotesAPI;

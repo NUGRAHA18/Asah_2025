@@ -1,3 +1,4 @@
+import anime from "animejs";
 export class NoteItem extends HTMLElement {
   constructor() {
     super();
@@ -63,7 +64,7 @@ export class NoteItem extends HTMLElement {
         <h3 class="title"></h3>
         <div class="body"></div>
         <div class="controls">
-            <button part="del">Hapus</button>
+             <button part="archive">Arsipkan</button> <button part="del">Hapus</button>
         </div>
     </article>
 `;
@@ -72,8 +73,19 @@ export class NoteItem extends HTMLElement {
       body: this.shadowRoot.querySelector(".body"),
       date: this.shadowRoot.querySelector(".date"),
       delBtn: this.shadowRoot.querySelector('button[part="del"]'),
+      archiveBtn: this.shadowRoot.querySelector('button[part="archive"]'),
     };
     this.$.delBtn.addEventListener("click", () => this._delete());
+    this.$.archiveBtn.addEventListener("click", () => this._archive());
+  }
+  connectedCallback() {
+    anime({
+      targets: this, // Targetnya adalah elemen <note-item> ini sendiri
+      opacity: [0, 1], // Animasikan opacity dari 0 (tak terlihat) ke 1 (terlihat)
+      translateY: [20, 0], // Animasikan posisi dari 20px di bawah ke posisi normal
+      duration: 500, // Durasi animasi dalam milidetik
+      easing: "easeOutExpo", // Jenis pergerakan animasi agar lebih halus
+    });
   }
   set data(d) {
     this._data = d;
@@ -84,8 +96,15 @@ export class NoteItem extends HTMLElement {
     this.$.title.textContent = this._data.title;
     this.$.body.textContent = this._data.body;
     this.$.date.textContent = new Date(this._data.createdAt).toLocaleString();
+    this.$.archiveBtn.textContent = this._data.archived
+      ? "Pindahkan"
+      : "Arsipkan";
   }
   _delete() {
+    console.log(
+      'Langkah 1: Event "delete-note" dikirim untuk ID:',
+      this._data.id
+    ); // <-- TAMBAHKAN INI
     this.dispatchEvent(
       new CustomEvent("delete-note", {
         detail: { id: this._data.id },
@@ -94,6 +113,18 @@ export class NoteItem extends HTMLElement {
       })
     );
   }
+  _archive() {
+    this.dispatchEvent(
+      new CustomEvent("archive-note", {
+        // Kirim id dan status arsip saat ini
+        detail: { id: this._data.id, archived: this._data.archived },
+        bubbles: true,
+        composed: true,
+      })
+    );
+  }
 }
 
-customElements.define("note-item", NoteItem);
+if (!customElements.get("note-item")) {
+  customElements.define("note-item", NoteItem);
+}
