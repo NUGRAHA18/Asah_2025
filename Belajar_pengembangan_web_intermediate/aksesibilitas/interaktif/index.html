@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Custom Button with Keyboard Func | JavaScript</title>
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <p>
+      <label for="temp"
+        >Letakkan cursor Anda ke kolom input, lalu tekan tombol Tab:</label
+      >
+      <input id="temp" />
+    </p>
+
+    <div class="buttons">
+      <button>[button] Tekan saya!</button>
+      <div class="button" tabindex="0">[div] Tekan saya!</div>
+    </div>
+
+    <div id="output" class="output">
+      Coba tekan kedua elemen tombol di atas menggunakan cursor dan menggunakan
+      keyboard (gunakan tombol Tab dan Space/Enter untuk melakukan aksi klik).
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
