@@ -1,5 +1,5 @@
-import { getActiveRoute } from './routes/url-parser.js';
-import routes from './routes/routes.js';
+import { getActiveRoute } from "./routes/url-parser.js";
+import routes from "./routes/routes.js";
 
 export default class App {
   #content;
@@ -16,5 +16,6 @@ export default class App {
     const page = route();
 
     this.#content.innerHTML = await page.render();
+    await page.afterRender();
   }
 }
