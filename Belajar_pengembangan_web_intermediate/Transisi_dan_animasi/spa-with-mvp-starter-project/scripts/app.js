@@ -11,6 +11,7 @@ export default class App {
   async renderPage() {
     const routeName = getActiveRoute();
     const route = routes[routeName];
+    console.log(route);
 
     // Get page instance
     const page = route();
