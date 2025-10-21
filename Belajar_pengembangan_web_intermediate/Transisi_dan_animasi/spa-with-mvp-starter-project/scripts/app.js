@@ -11,12 +11,35 @@ export default class App {
   async renderPage() {
     const routeName = getActiveRoute();
     const route = routes[routeName];
-    console.log(route);
 
     // Get page instance
     const page = route();
 
-    this.#content.innerHTML = await page.render();
-    await page.afterRender();
+    // Alternative DOM update for browsers that do not support view transition
+    if (!document.startViewTransition) {
+      this.#content.innerHTML = await page.render();
+      await page.afterRender();
+
+      return;
+    }
+
+    // Update DOM with view transition
+    const transition = document.startViewTransition(async () => {
+      this.#content.innerHTML = await page.render();
+      await page.afterRender();
+    });
+
+    transition.updateCallbackDone.then(() => {
+      console.log("Callback telah dieksekusi.");
+    });
+    transition.ready.then(() => {
+      console.log("View transition siap dijalankan.");
+    });
+    transition.finished.then(() => {
+      console.log("View transition telah selesai.");
+    });
+
+    // Skip the view transition and update only the DOM
+    transition.skipTransition();
   }
 }

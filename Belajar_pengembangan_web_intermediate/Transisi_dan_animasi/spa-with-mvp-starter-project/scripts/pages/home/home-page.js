@@ -4,8 +4,6 @@ import HomePresenter from "./home-presenter.js";
 
 export default class HomePage {
   #presenter;
-  #view;
-  #model;
   async render() {
     return `
       <h1 class="content-title">Home Page</h1>
@@ -24,6 +22,7 @@ export default class HomePage {
 
     await this.#presenter.showCats();
   }
+
   showCats(cats) {
     const html = cats.reduce(
       (accumulator, currentValue) =>
