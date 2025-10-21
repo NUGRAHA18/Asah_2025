@@ -8,17 +8,18 @@ export default class HomePage {
     return `
       <h1 class="content-title">Home Page</h1>
       <p>Ini adalah konten halaman utama.</p>
-      
-      <div id="cats"></div>
- 
       <p>Mari kita cek <a href="#/about">halaman about</a>!</p>
+      <div id="loading-container"></div>
+      <div id="cats"></div>
     `;
   }
+
   async afterRender() {
     this.#presenter = new HomePresenter({
-      model: CatLocal,
+      model: CatsLocal,
       view: this,
     });
+
     await this.#presenter.showCats();
   }
 
@@ -32,5 +33,14 @@ export default class HomePage {
     document.getElementById("cats").innerHTML = `
       <ul class="cats-list">${html}</ul>
     `;
+  }
+
+  showLoading() {
+    document.getElementById("loading-container").innerHTML = `
+      <div class="loader"></div>
+    `;
+  }
+  hideLoading() {
+    document.getElementById("loading-container").innerHTML = "";
   }
 }
