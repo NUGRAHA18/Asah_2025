@@ -20,6 +20,7 @@ body {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -47,6 +48,8 @@ body {
   color: var(--white);
   display: grid;
   align-items: center;
+
+  view-transition-name: main-header;
 }
 
 .content {
@@ -100,8 +103,54 @@ body {
 }
 
 .cat-detail__image {
+  view-transition-name: cat-image;
   display: block;
   width: 100%;
   max-width: 800px;
   height: auto;
+
+  view-transition-name: cat-image;
+}
+
+@keyframes move-out {
+  from {
+    transform: translateX(0%);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes move-in {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0%);
+  }
+}
+
+::view-transition-group(cat-image) {
+  animation-duration: 500ms;
+}
+
+::view-transition-old(root) {
+  animation-name: move-out;
+  animation-duration: 500ms;
+}
+
+::view-transition-new(root) {
+  animation-name: move-in;
+  animation-duration: 500ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }

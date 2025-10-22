@@ -1,0 +1,160 @@
+/* ===================== */
+/*   VIEW TRANSITION ANIMATIONS   */
+/* ===================== */
+
+/* Default view transition (mobile / global) */
+::view-transition-old(root) {
+  animation: zoom-out 0.4s ease forwards;
+}
+
+::view-transition-new(root) {
+  animation: zoom-in 0.4s ease forwards;
+}
+
+/* 🔍 Keyframes Definition */
+@keyframes zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes zoom-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+}
+
+/* 🧍 Accessibility — disable animation for reduced motion users */
+@media (prefers-reduced-motion: reduce) {
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* ===================== */
+/*   RESPONSIVE STYLES   */
+/* ===================== */
+
+@media screen and (min-width: 600px) {
+
+  /* Ganti efek lama (slide/fade) jadi efek zoom agar konsisten */
+  ::view-transition-old(root) {
+    animation: zoom-out 0.4s ease forwards;
+  }
+
+  ::view-transition-new(root) {
+    animation: zoom-in 0.4s ease forwards;
+  }
+
+  form .form-buttons {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .register-form,
+  .login-form {
+    border: 1px solid #D4D4D4;
+  }
+
+  .report-detail__images {
+    height: 400px;
+  }
+
+  .report-detail__body-container {
+    inset-block-start: -150px;
+  }
+
+  .new-form__documentations__buttons {
+    flex-direction: row;
+  }
+
+  .new-form__documentations__outputs {
+    grid-template-columns: repeat(2, minmax(200px, 300px));
+  }
+}
+
+@media screen and (min-width: 800px) {
+
+  .reports-list__map__container,
+  .reports-list__map {
+    height: 500px;
+  }
+
+  .reports-list {
+    grid-template-columns: repeat(2, minmax(300px, 1fr));
+  }
+
+  .report-detail__body-container {
+    inset-block-start: -200px;
+  }
+
+  .report-detail__images {
+    height: 500px;
+  }
+
+  .new-form__documentations__outputs {
+    grid-template-columns: repeat(3, minmax(200px, 300px));
+  }
+
+  .footer-content {
+    justify-content: space-between;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .navigation-drawer {
+    min-height: auto;
+    width: auto;
+    padding: 0;
+    background-color: transparent;
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: space-between;
+    position: static;
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  .navigation-drawer__navlist-main,
+  .navigation-drawer__navlist {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .header-content__nav-list li a {
+    display: inline-flex;
+  }
+
+  .drawer-button {
+    display: none;
+  }
+
+  .reports-list__map__container,
+  .reports-list__map {
+    height: 600px;
+  }
+
+  .reports-list {
+    grid-template-columns: repeat(3, minmax(300px, 1fr));
+  }
+
+  .report-detail__images {
+    height: 600px;
+  }
+}
