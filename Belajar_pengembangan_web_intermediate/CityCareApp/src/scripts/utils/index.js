@@ -79,3 +79,29 @@ export function convertBase64ToUint8Array(base64String) {
 export function setupSkipToContent(element, mainContent) {
   element.addEventListener('click', () => mainContent.focus());
 }
+export function transitionHelper({ skipTransition = false, updateDOM }) {
+  if (skipTransition || !document.startViewTransition) {
+    const updateCallbackDone = Promise.resolve(updateDOM());
+    return {
+      ready: Promise.resolve(),
+      updateCallbackDone,
+      finished: updateCallbackDone,
+    };
+  }
+
+  let transition;
+  const ready = new Promise((resolve, reject) => {
+    requestAnimationFrame(() => {
+      try {
+        transition = document.startViewTransition(updateDOM);
+        resolve();
+      } catch (err) {
+        reject(err);
+      }
+    });
+  });
+
+  const updateCallbackDone = ready.then(() => transition.updateCallbackDone);
+
+  return { ready, updateCallbackDone, finished: updateCallbackDone };
+}
